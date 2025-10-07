@@ -1,0 +1,28 @@
+{
+  "name": "clean-blog",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "\"# Clean-Blog\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusufkeremsahan/Clean-Blog.git"
+  },
+  "keywords": [
+    "Clean",
+    "Blog"
+  ],
+  "author": "Yusuf Kerem Şahan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yusufkeremsahan/Clean-Blog/issues"
+  },
+  "homepage": "https://github.com/yusufkeremsahan/Clean-Blog#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
