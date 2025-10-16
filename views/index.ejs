@@ -3,8 +3,6 @@
 <body>
 
   <%-include('partials/_navigation')%>
-
-
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('img/home-bg.jpg')">
     <div class="overlay"></div>
@@ -24,59 +22,41 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        <% for(let i=0; i < blogs.length; i++) { %>
         <div class="post-preview">
-          <a href="post.html">
+          <a href="./post">
             <h2 class="post-title">
-              Man must explore, and this is exploration at its greatest
+              <%= blogs[i].title %> 
             </h2>
             <h3 class="post-subtitle">
-              Problems look mighty small from 150 miles up
+              <%= blogs[i].detail %> 
             </h3>
           </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
+          <p class="post-meta">
+            <% const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+            const day = blogs[i].dateCreated.getDate();
+            const month = monthNames[blogs[i].dateCreated.getMonth()];
+            const year = blogs[i].dateCreated.getFullYear();
+            function getOrdinalSuffix(n) {
+              if (n > 3 && n < 21) return 'th'; // 11th, 12th, 13th gibi
+              switch (n % 10) {
+                case 1: return 'st';
+                case 2: return 'nd';
+                case 3: return 'rd';
+                default: return 'th';
+              }
+            }
+            const formatedDate = `on ${day}${getOrdinalSuffix(day)} ${month}, ${year}`; 
+            %>
+
+            <%= formatedDate %>
+            </p>
         </div>
+        <% } %>
         <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
+        
+        
+        
         <!-- Pager -->
         <div class="clearfix">
           <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>

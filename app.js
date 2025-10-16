@@ -1,26 +1,23 @@
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import ejs from 'ejs';
+import mongoose from 'mongoose';
+import Blog from './models/Blog.js';
 
 
 const app = express();
 const port = 3000;
 
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 app.set("view engine", "ejs");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+mongoose.connect('mongodb://localhost/blog-test-db');
 
 app.listen(port, () =>{
     console.log(`Program ${port} portunda başlatıldı...`);
-})
-
-
-app.get('/', (req,res) =>{
-    res.render('index');
 })
 
 app.get('/about', (req, res) =>{
@@ -34,5 +31,15 @@ app.get('/post', (req,res) =>{
 
 app.get('/add_post', (req,res) =>{
     res.render('add_post');
+})
 
+app.post('/blogs', async (req,res) =>{
+    console.log(req.body);
+    Blog.create(req.body);
+    return res.redirect('/'); 
+})
+
+app.get('/', async (req,res) =>{
+    const blogs = await Blog.find({})
+    res.render('index', {blogs});
 })
