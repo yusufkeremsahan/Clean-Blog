@@ -1,0 +1,68 @@
+<%-include('partials/_header')%>
+
+<body>
+
+  <%-include('partials/_navigation')%>
+
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Edit The Post</h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form method="POST"  action="/post/<%= blog._id%>?_method=PUT" novalidate>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <h4 class="mb-0">Post Title</h4>
+              <input name="title" type="text" class="form-control" value="<%= blog.title %>" placeholder="Title" id="name" required data-validation-required-message="Please enter your name.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <h4 class="mb-0">Post Topic</h4>
+              <input name="topic" rows="5" class="form-control" value="<%= blog.topic %>" placeholder="Topic" id="topic" required data-validation-required-message="Please enter a message."></input>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <h4 class="mb-0">Post Content</h4>
+              <textarea name="detail" rows="5" class="form-control" placeholder="Content" id="message" required data-validation-required-message="Please enter a message."><%= blog.detail %>
+              </textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <%-include('partials/_footer')%>
+
+  <!-- Contact Form JavaScript -->
+  <script src="js/jqBootstrapValidation.js"></script>
+  <script src="js/contact_me.js"></script>
+
+</body>
+
+</html>

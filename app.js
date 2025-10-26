@@ -2,6 +2,7 @@ import express from 'express';
 import ejs from 'ejs';
 import mongoose from 'mongoose';
 import Blog from './models/Blog.js';
+import methodOverride from 'method-override';
 
 
 const app = express();
@@ -10,6 +11,7 @@ const port = 3000;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride('_method'));
 
 
 app.set("view engine", "ejs");
@@ -41,6 +43,22 @@ app.post('/blogs', async (req,res) =>{
 app.get('/', async (req,res) =>{
     const blogs = await Blog.find({})
     res.render('index', {blogs});
+})
+
+app.get('/post/edit/:id', async (req,res)=>{
+    const blog = await Blog.findById(req.params.id);
+    res.render('edit',{
+        blog
+    });
+})
+
+app.put('/post/:id', async (req,res)=>{
+    let blog = await Blog.findById(req.params.id);
+    blog.title = req.body.title;
+    blog.topic = req.body.topic;
+    blog.detail = req.body.detail;
+    blog.save();
+    res.redirect(`/post/${req.params.id}`);
 })
 
 
