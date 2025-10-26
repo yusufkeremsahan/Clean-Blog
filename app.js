@@ -16,9 +16,6 @@ app.set("view engine", "ejs");
 
 mongoose.connect('mongodb://localhost/blog-test-db');
 
-app.listen(port, () =>{
-    console.log(`Program ${port} portunda başlatıldı...`);
-})
 
 app.get('/about', (req, res) =>{
     res.render('about');
@@ -37,7 +34,6 @@ app.get('/add_post', (req,res) =>{
 })
 
 app.post('/blogs', async (req,res) =>{
-    console.log(req.body);
     Blog.create(req.body);
     return res.redirect('/'); 
 })
@@ -45,4 +41,9 @@ app.post('/blogs', async (req,res) =>{
 app.get('/', async (req,res) =>{
     const blogs = await Blog.find({})
     res.render('index', {blogs});
+})
+
+
+app.listen(port, () =>{
+    console.log(`Program ${port} portunda başlatıldı...`);
 })

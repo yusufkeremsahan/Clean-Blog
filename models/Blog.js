@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const BlogSchema = new Schema({
     title: String,
+    topic: String,
     detail: String,
     dateCreated: {type: Date,
         default: Date.now
