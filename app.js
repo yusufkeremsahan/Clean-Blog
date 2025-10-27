@@ -1,9 +1,9 @@
 import express from 'express';
 import ejs from 'ejs';
 import mongoose from 'mongoose';
-import Blog from './models/Blog.js';
 import methodOverride from 'method-override';
-
+import blogController from './controllers/blogControllers.js'; 
+import pageController from './controllers/pageControllers.js';
 
 const app = express();
 const port = 3000;
@@ -15,58 +15,21 @@ app.use(methodOverride('_method', {
     methods: ['POST', 'GET']
 }));
 
-
 app.set("view engine", "ejs");
 
 mongoose.connect('mongodb://localhost/blog-test-db');
 
+//Page Controller
+app.get('/about',pageController.getAboutPage);
+app.get('/post/:id', pageController.getIndexPage);
+app.get('/add_post', pageController.getAddPostPage);
 
-app.get('/about', (req, res) =>{
-    res.render('about');
-})
-
-
-app.get('/post/:id', async(req,res) =>{
-    const blog = await Blog.findById(req.params.id);
-    res.render('post', {
-        blog
-    });
-})
-
-app.get('/add_post', (req,res) =>{
-    res.render('add_post');
-})
-
-app.post('/blogs', async (req,res) =>{
-    Blog.create(req.body);
-    return res.redirect('/'); 
-})
-
-app.get('/', async (req,res) =>{
-    const blogs = await Blog.find({})
-    res.render('index', {blogs});
-})
-
-app.get('/post/edit/:id', async (req,res)=>{
-    const blog = await Blog.findById(req.params.id);
-    res.render('edit',{
-        blog
-    });
-})
-
-app.put('/post/:id', async (req,res)=>{
-    let blog = await Blog.findById(req.params.id);
-    blog.title = req.body.title;
-    blog.topic = req.body.topic;
-    blog.detail = req.body.detail;
-    blog.save();
-    res.redirect(`/post/${req.params.id}`);
-})
-
-app.delete('/post/:id', async (req, res) =>{
-    await Blog.findByIdAndDelete(req.params.id);
-    res.redirect('/');
-})
+//Blog Controller
+app.post('/blogs',blogController.createBlog)
+app.get('/', blogController.getAllBlogs);
+app.get('/post/edit/:id', blogController.getBlog);
+app.put('/post/:id', blogController.editBlog);
+app.delete('/post/:id', blogController.deleteBlog);
 
 
 app.listen(port, () =>{
