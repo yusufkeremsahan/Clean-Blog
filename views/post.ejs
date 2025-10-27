@@ -38,7 +38,7 @@
          
           <div class="text-center">
             <a href="/post/edit/<%= blog.id %>" class="btn btn-primary "><span>Update Details</span></a>	
-            <a href="" onclick="return confirm('Are you sure?')" class="btn btn-danger "><span>Delete Photo</span></a>	
+            <a href="/post/<%= blog._id %>?_method=DELETE" onclick="return confirm('Are you sure?')" class="btn btn-danger "><span>Delete Photo</span></a>	
           </div>								
         </div>
           

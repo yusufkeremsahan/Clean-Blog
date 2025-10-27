@@ -11,7 +11,9 @@ const port = 3000;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride('_method'));
+app.use(methodOverride('_method', {
+    methods: ['POST', 'GET']
+}));
 
 
 app.set("view engine", "ejs");
@@ -59,6 +61,11 @@ app.put('/post/:id', async (req,res)=>{
     blog.detail = req.body.detail;
     blog.save();
     res.redirect(`/post/${req.params.id}`);
+})
+
+app.delete('/post/:id', async (req, res) =>{
+    await Blog.findByIdAndDelete(req.params.id);
+    res.redirect('/');
 })
 
 
