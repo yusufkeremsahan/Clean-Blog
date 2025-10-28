@@ -34,7 +34,7 @@ To run this project on your local machine, follow the steps below:
 
 ---
 
-##📂 Project Structure
+## 📂 Project Structure
 
 * **models/**       : Database models (MongoDB schemas)
 * **views/**        : EJS templates for pages
@@ -43,7 +43,7 @@ To run this project on your local machine, follow the steps below:
 
 ---
 
-##⚡ Notes
+## ⚡ Notes
 
 * No authentication or admin panel is included; all users have equal access to create, edit, and delete posts.
 * This project serves as a small web development exercise and demonstrates basic CRUD operations with Node.js, Express, EJS, and MongoDB.
