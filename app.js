@@ -5,9 +5,11 @@ import methodOverride from 'method-override';
 import blogController from './controllers/blogControllers.js'; 
 import pageController from './controllers/pageControllers.js';
 
+const DB_URI = process.env.MONGODB_URL || 'mongodb://localhost/pcat-test-db';
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
+//MIDDLEWARES
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -17,7 +19,12 @@ app.use(methodOverride('_method', {
 
 app.set("view engine", "ejs");
 
-mongoose.connect('mongodb://localhost/blog-test-db');
+//Connect DB
+mongoose.connect(DB_URI)
+  .then(() => console.log('DB Connected!'))
+  .catch(err => {
+    console.error('DB Connection Error:', err);
+});
 
 //Page Controller
 app.get('/about',pageController.getAboutPage);
